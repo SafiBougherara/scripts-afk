@@ -170,6 +170,24 @@ Le fichier `mouse_mover.exe` sera créé dans le dossier `dist/`.
 pyinstaller --onefile --noconsole --name mouse_mover --clean mouse_mover.py
 ```
 
+### Changer l'icône du .exe
+
+Pour personnaliser l'icône de votre fichier .exe :
+
+1. **Obtenir ou créer un fichier .ico** :
+   - Trouvez une icône sur internet (format .ico)
+   - Ou convertissez une image (PNG, JPG) en .ico en utilisant un convertisseur en ligne (par exemple : [convertio.co](https://convertio.co/png-ico/))
+
+2. **Placer le fichier .ico dans le dossier du projet** :
+   - Renommez-le `icon.ico` ou `mouse_mover.ico`
+   - Placez-le dans le même dossier que `mouse_mover.py`
+
+3. **Recompiler le .exe** :
+   - Le script `build_exe.bat` détectera automatiquement le fichier .ico et l'utilisera
+   - Ou manuellement : `pyinstaller --onefile --name mouse_mover --icon icon.ico --clean mouse_mover.py`
+
+**Note** : Le fichier .ico doit être au format Windows (icône) et peut contenir plusieurs tailles (16x16, 32x32, 48x48, 256x256 pixels) pour une meilleure qualité.
+
 ### Note importante
 
 Le fichier .exe créé sera assez volumineux (environ 10-20 MB) car il inclut Python et toutes les dépendances nécessaires. C'est normal et nécessaire pour que le .exe fonctionne sur des machines sans Python installé.

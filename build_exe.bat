@@ -23,14 +23,30 @@ echo.
 echo Compilation en cours...
 echo.
 
+REM Vérifier si un fichier .ico existe
+set ICON_FILE=
+if exist "icon.ico" (
+    set ICON_FILE=--icon icon.ico
+    echo Icône trouvée: icon.ico
+) else if exist "mouse_mover.ico" (
+    set ICON_FILE=--icon mouse_mover.ico
+    echo Icône trouvée: mouse_mover.ico
+) else (
+    echo Aucune icône trouvée. Utilisation de l'icône par défaut.
+    echo Pour ajouter une icône, placez un fichier icon.ico ou mouse_mover.ico dans ce dossier.
+)
+
+echo.
+
 REM Créer le .exe avec PyInstaller
 REM Options:
 REM --onefile : Créer un seul fichier .exe
 REM --noconsole : Ne pas afficher la console (optionnel, commenté pour voir les logs)
 REM --name : Nom du fichier .exe
 REM --icon : Icône (optionnel, à ajouter si vous avez une icône .ico)
+REM Utilisation de "python -m PyInstaller" pour éviter les problèmes de PATH
 
-pyinstaller --onefile --name mouse_mover --clean mouse_mover.py
+python -m PyInstaller --onefile --name mouse_mover --clean %ICON_FILE% mouse_mover.py
 
 if errorlevel 1 (
     echo.

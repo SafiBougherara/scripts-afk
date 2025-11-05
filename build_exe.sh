@@ -22,13 +22,30 @@ echo ""
 echo "Compilation en cours..."
 echo ""
 
+# Vérifier si un fichier .ico existe
+ICON_FILE=""
+if [ -f "icon.ico" ]; then
+    ICON_FILE="--icon icon.ico"
+    echo "Icône trouvée: icon.ico"
+elif [ -f "mouse_mover.ico" ]; then
+    ICON_FILE="--icon mouse_mover.ico"
+    echo "Icône trouvée: mouse_mover.ico"
+else
+    echo "Aucune icône trouvée. Utilisation de l'icône par défaut."
+    echo "Pour ajouter une icône, placez un fichier icon.ico ou mouse_mover.ico dans ce dossier."
+fi
+
+echo ""
+
 # Créer le .exe avec PyInstaller
 # Options:
 # --onefile : Créer un seul fichier .exe
 # --name : Nom du fichier .exe
 # --clean : Nettoyer les fichiers temporaires
+# --icon : Icône (optionnel)
+# Utilisation de "python3 -m PyInstaller" pour éviter les problèmes de PATH
 
-pyinstaller --onefile --name mouse_mover --clean mouse_mover.py
+python3 -m PyInstaller --onefile --name mouse_mover --clean $ICON_FILE mouse_mover.py
 
 if [ $? -ne 0 ]; then
     echo ""
